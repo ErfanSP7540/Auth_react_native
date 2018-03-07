@@ -5,7 +5,7 @@ class App extends Component{
   render(){
     return (
       <View>
-        <Text>  mmmmmmm    </Text>
+        <Text>  mmmmm  </Text>
       </View>
     )
   }
