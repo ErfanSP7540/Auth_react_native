@@ -1,25 +1,30 @@
 import React,{ Component } from 'react'
-import { View , TextInput } from 'react-native'
-import {Button,Card,CardSection} from './common'
-
-
+import {Button,Card,CardSection,Input} from './common'
 
 class LoginForm extends Component{
-    state={text:''}
-
+    state={email:'',password:''}
 
     render(){
         return(
             <Card>
                 <CardSection>
-                    <TextInput
-                        value={this.state.text} 
-                        style={styles.textInputStyle} 
-                        onChangeText={ text=>this.setState({text}) }
+                    <Input  
+                        placeholder={'user@gmail.com'}
+                        label={'Email'}
+                        value={this.state.email}
+                        onChangeText={email=>this.setState({email})}
                     />
                 </CardSection>
-                <CardSection />
 
+                <CardSection >
+                    <Input  
+                            secureTextEntry = {true}
+                            placeholder={'password'}
+                            label={'password'}
+                            value={this.state.password}
+                            onChangeText={password=>this.setState({password})}
+                        />
+                </CardSection>        
                 <CardSection>
                     <Button>
                         log in
@@ -31,12 +36,6 @@ class LoginForm extends Component{
     }
 }
 
-styles = {
-    textInputStyle:{
-        height:20,
-        flex:1,
-        backgroundColor:'red',
-    },
-}
+
 
 export default LoginForm 
