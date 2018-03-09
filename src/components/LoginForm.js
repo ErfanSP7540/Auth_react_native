@@ -1,15 +1,15 @@
 import React,{ Component } from 'react'
 import {Text} from 'react-native'
-import {Button,Card,CardSection,Input} from './common'
+import {Button,Card,CardSection,Input, Spinner} from './common'
 import axios from 'axios'
 class LoginForm extends Component{
-    state={email:'',password:'',error:'error'}
+    state={email:'',password:'',error:'error',loading:false}
 
 
 
     onButtonPress(){
         const {password, email} = this.state;
-        this.setState({error:''})
+        this.setState({error:'',loading:true})
         
         axios(
             { method: 'GET',
@@ -24,14 +24,25 @@ class LoginForm extends Component{
             console.log(r);
             
                     if(r.data.error){
-                        this.setState({error:r.data.error})
+                        this.setState({error:r.data.error,loading:false})
                     }else{
-                        this.setState({error:'Found'})
+                        this.setState({error:'Found',loading:false})
                     }
         })
-        .catch( e=> {console.log(e);this.setState({error:'Network error'})})
+        .catch( e=> {console.log(e);this.setState({error:'Network error',loading:false})})
     }
 
+    renderButton(){
+        if( this.state.loading  ){
+            return( <Spinner size={'large'}/> )
+        }else{
+            return(
+                    <Button onPress={this.onButtonPress.bind(this)}>
+                        log in
+                    </Button>
+                    )
+        }
+    }
     render(){
         return(
             <Card>
@@ -54,11 +65,8 @@ class LoginForm extends Component{
                         />
                 </CardSection>
                 <Text style={styles.errorStyle}>{this.state.error}</Text>
-                <CardSection>
-                    <Button onPress={this.onButtonPress.bind(this)}>
-                        log in
-                    </Button>
-
+                <CardSection> 
+                    { this.renderButton() }
                 </CardSection>
 
             </Card>
